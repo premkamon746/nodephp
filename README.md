@@ -31,4 +31,9 @@ INSERT INTO `products` (`Id`, `Name`, `Description`, `Price`, `Stock`) VALUES
 $ php server.php
 ```
 
-## 
+## Access from browser
+this assigment I use port 8080 with loop back ip 
+
+```url
+http://localhost:8080
+```
