@@ -6,11 +6,16 @@ use Premkamon\PHPServer\App;
 use Premkamon\MyDatabase\Database;  
 
 
+define("DBHOST", "localhost");
+define("USERNAME", "root");
+define("PASSWORD", "");
+define("DBNAME", "assign");
 
 $server = new Server();
 $app = new App($server);
 
-
+//database connection
+$db = new Database(DBHOST,USERNAME,PASSWORD,DBNAME);
 
 //this route request list of product
 $app->get("/",function($req,$res){
@@ -20,8 +25,7 @@ $app->get("/",function($req,$res){
 
 
 //this route get all product
-$app->get("/get-all-products",function($req,$res){
-	$db = new Database("localhost","root","","assign");
+$app->get("/get-all-products",function($req,$res) use ($db){
 	$products = $db->query("select * from products")->fetchAll(PDO::FETCH_CLASS, 'Premkamon\DataModel\Products');
 	$json = json_encode($products);
 	return $res->sendJSON($json);
@@ -35,10 +39,7 @@ $app->get("/import-products",function($req,$res){
 
 
 
-$app->post("/import-products",function($req,$res){
-	$db = new Database("localhost","root","","assign");
-	//$conn = $db->connect();
-
+$app->post("/import-products",function($req,$res) use ($db){
 	$jsonData = $req->post("jsonData");
 	$json = json_decode($jsonData );
 	
@@ -54,10 +55,7 @@ $app->post("/import-products",function($req,$res){
 });
 
 
-$app->get("/export-products",function($req,$res){
-	$db = new Database("localhost","root","","assign");
-	//$conn = $db->connect();
-	
+$app->get("/export-products",function($req,$res) use ($db){
 	$products = $db->query("select * from products")->fetchAll(PDO::FETCH_CLASS, 'Premkamon\DataModel\Products');
 	$csv = "name,description,price,stock \n";//Column headers
 	foreach ($products as $p)
@@ -67,6 +65,11 @@ $app->get("/export-products",function($req,$res){
 
 	return $res->download($csv,'products.csv','application/csv');
 });
+
+$app->delete("/products",function($req,$res){
+	return $res->send('delete');
+});
+
 
 
 

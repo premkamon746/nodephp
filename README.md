@@ -25,6 +25,15 @@ INSERT INTO `products` (`Id`, `Name`, `Description`, `Price`, `Stock`) VALUES
 (4, 'Product Name 2', 'A product description 2', 15, 23);
 ````
 
+change database connection in php file name server.php
+
+```sql
+define("DBHOST", "localhost");
+define("USERNAME", "");
+define("PASSWORD", "");
+define("DBNAME", "");
+```
+
 ## Running server
 
 ```bash
