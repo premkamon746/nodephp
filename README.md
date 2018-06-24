@@ -1,26 +1,34 @@
 # Assigment PHP socket web
 
-## How to running
+## How to Install
 
 Run Composer install because I'm use PSR-4
-
-## Installation using Composer
-
-The easiest way to create a new Zend Framework project is to use
-[Composer](https://getcomposer.org/).  If you don't have it already installed,
-then please install as per the [documentation](https://getcomposer.org/doc/00-intro.md).
-
-To create your new Zend Framework project:
-
 ```bash
-$ composer create-project -sdev zendframework/skeleton-application path/to/install
+$ composer install
 ```
 
-Once installed, you can test it out immediately using PHP's built-in web server:
+create mysql database script
+```sql
+CREATE TABLE `products` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(1000) NOT NULL,
+  `Description` varchar(4000) NOT NULL,
+  `Price` int(11) NOT NULL,
+  `Stock` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `products` (`Id`, `Name`, `Description`, `Price`, `Stock`) VALUES
+(1, 'Blue Shirt', 'Blue Shirt', 100, 10),
+(2, 'shoe', 'red shoe', 350, 15),
+(3, 'Product Name', 'A product description', 16, 2),
+(4, 'Product Name 2', 'A product description 2', 15, 23);
+````
+
+## Running server
 
 ```bash
-$ cd path/to/install
-$ php -S 0.0.0.0:8080 -t public/ public/index.php
-# OR use the composer alias:
-$ composer run --timeout 0 serve
+$ php server.php
 ```
+
+## 
